@@ -1,0 +1,31 @@
+/* StartScreen.css */
+.StartScreen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../public/title.png'); /* Check the correct path for your project setup */
+    background-size: cover;
+  }
+  
+  .StartButton {
+    font-size: 24px; /* Bigger font size */
+    padding: 15px 30px;
+    margin-top:20%;
+    cursor: pointer;
+    border: 4px solid ; /* Thick border */
+    border-radius: 30px; /* Rounded corners */
+    font-family: monospace;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* Include border-color in transition */
+    background-color: #4CAF50; /* Initial background color */
+}
+  
+  .StartButton:hover {
+    transform: scale(1.1); /* Enlarge button on hover */
+  }
+  
+  .StartButton.Active {
+    background-color: #e91e63; /* Color changes when active/clicked */
+  }
+  
