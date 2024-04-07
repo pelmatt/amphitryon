@@ -3,22 +3,30 @@ import './App.css';
 import StartScreen from './StartScreen';
 import Creation from './Creation';
 import dungeonMusic from './sound_effects/dungeon-music.mp3'
+import Loading from './Loading';
 
 function App() {
   const [view, setView] = useState('start');
   const [transitionPhase, setTransitionPhase] = useState('none');
   const [apiKey, setApiKey] = useState(''); // State to store the API key
+  const [responses, setResponses] = useState({});
 
   const handleStart = (apiKey) => {
     setApiKey(apiKey); // Update the state with the API key
     setTransitionPhase('fadingOut');
+  };
+  const handleCreationComplete = (userResponses) => {
+    console.log('Creation complete. Transitioning to the loading screen.');
+    setResponses(userResponses);
+    setTransitionPhase('fadingOut'); // Initiate fade-out transition
   };
 
   useEffect(() => {
     let timeoutId = null;
     if (transitionPhase === 'fadingOut') {
       timeoutId = setTimeout(() => {
-        setView('creation');
+        // Transition to creation or loading based on current view
+        setView(view === 'creation' ? 'loading' : 'creation');
         setTransitionPhase('fadingIn');
       }, 1000);
     } else if (transitionPhase === 'fadingIn') {
@@ -28,7 +36,7 @@ function App() {
     }
 
     return () => clearTimeout(timeoutId);
-  }, [transitionPhase]);
+  }, [transitionPhase, view]);
 
   useEffect(() => {
     const audio = new Audio(dungeonMusic);
@@ -47,7 +55,8 @@ function App() {
   return (
     <div className={`App ${transitionPhase}`}>
       {view === 'start' && <StartScreen onStart={handleStart} />}
-      {view === 'creation' && <Creation apiKey={apiKey} />} 
+      {view === 'creation' && <Creation onCreationComplete={handleCreationComplete}/>} 
+      {view === 'loading' && <Loading responses={responses} apiKey={apiKey}/>}
     </div>
   );
 }

@@ -4,20 +4,20 @@ import { questions } from './questions';
 const useGameLogic = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [responses, setResponses] = useState({});
-    const [gameOver, setGameOver] = useState(false);
+    const [creationOver, setCreationOver] = useState(false);
   
     const goToNextQuestion = () => {
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        setGameOver(true);
+        setCreationOver(true);
       }
     };
     
     return {
       currentQuestionIndex,
       responses,
-      gameOver,
+      creationOver,
       goToNextQuestion,
       setResponses,
       questions,

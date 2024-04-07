@@ -5,11 +5,11 @@ import useGameLogic from './creation_stuff/useGameLogic';
 import useAnimation from './creation_stuff/animationUtil'; // Adjust the path based on your file structure
 
 
-const Creation = () => {
+const Creation = ({ onCreationComplete }) => {
   const [userInput, setUserInput] = useState('');
   const {
     currentQuestionIndex,
-    gameOver,
+    creationOver,
     goToNextQuestion,
     setResponses,
     responses
@@ -35,13 +35,19 @@ const Creation = () => {
     }
   };
 
+  useEffect(() => {
+    if (creationOver) {
+      onCreationComplete(responses); // Pass responses as argument
+    }
+  }, [creationOver, onCreationComplete, responses]);
+
   return (
     <div className="creation-view">
       <video autoPlay loop muted className="background-video">
         <source src="orb-room-loop.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {!gameOver ? (
+      {!creationOver ? (
         <div>
           <p id="question-text" className={`question-text vt323-regular ${animationClass}`}>
             {questions[currentQuestionIndex].text}
@@ -55,8 +61,8 @@ const Creation = () => {
           ></textarea>
         </div>
       ) : (
-        // Consider rendering more informative content or actions on game over
-        <p className="game-over-text">Game Over. Check the console for responses.</p>
+        
+        <p>Loading Screen Incoming...</p>
       )}
     </div>
   );

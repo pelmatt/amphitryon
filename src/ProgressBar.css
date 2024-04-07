@@ -1,0 +1,28 @@
+.progress-bar-container {
+    margin-bottom: 20px;
+  }
+  
+  .progress-bar-label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333; /* Adjust the color as needed */
+  }
+  
+  .progress-bar {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .progress-bar-fill {
+    height: 20px;
+    background-color: #4caf50; /* Green color; adjust as needed */
+    width: 0%; /* Default width, will be overridden when "completed" */
+    transition: width 0.5s ease-in-out;
+  }
+  
+  .progress-bar-fill.completed {
+    width: 100%; /* Full width when completed */
+  }
+  
